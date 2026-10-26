@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: slv_flights
+    description: >
+      Silver layer — cleaned flight records with surrogate key, computed
+      duration, trimmed callsigns, and invalid records filtered out.
+    columns:
+      - name: flight_id
+        description: Surrogate key derived from icao24 + timestamps + direction.
+        data_tests:
+          - unique
+          - not_null
+      - name: aircraft_icao24
+        data_tests:
+          - not_null
+      - name: flight_duration_minutes
+        description: Flight duration in minutes (arrived_at - departed_at).
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 1440
+              config:
+                severity: warn
+
+  - name: slv_airports
+    description: Silver layer — airport reference dimension from seed data.
+    columns:
+      - name: airport_icao
+        data_tests:
+          - unique
+          - not_null
+
+  - name: slv_airlines
+    description: Silver layer — airline reference dimension from seed data.
+    columns:
+      - name: callsign_prefix
+        data_tests:
+          - unique
+          - not_null
