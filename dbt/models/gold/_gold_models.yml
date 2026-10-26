@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: gld_daily_airport_traffic
+    description: >
+      Gold layer — daily arrivals, departures, and total movements per airport
+      with average flight duration metrics. Enriched with airport reference data.
+    columns:
+      - name: flight_date
+        data_tests:
+          - not_null
+      - name: airport_icao
+        data_tests:
+          - not_null
+      - name: total_movements
+        description: Sum of arrivals + departures for the day.
+
+  - name: gld_route_analysis
+    description: >
+      Gold layer — aggregated metrics per route (departure → arrival airport pair).
+      Includes flight counts, duration stats, unique aircraft, and service frequency.
+    columns:
+      - name: departure_airport_icao
+        data_tests:
+          - not_null
+      - name: arrival_airport_icao
+        data_tests:
+          - not_null
+
+  - name: gld_hourly_flight_activity
+    description: >
+      Gold layer — flight counts and avg duration broken down by hour of day (UTC and local),
+      airport, and direction. Includes timezone-aware local hour conversion.
+    columns:
+      - name: flight_date
+        data_tests:
+          - not_null
+      - name: departure_hour_utc
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 23
+
+  - name: gld_airline_traffic
+    description: >
+      Gold layer — aggregated airline traffic metrics per airport and direction.
+      Includes flight counts, unique aircraft, duration stats, and airline reference data.
+    columns:
+      - name: callsign_prefix
+        data_tests:
+          - not_null
+      - name: airport_icao
+        data_tests:
+          - not_null
