@@ -1,5 +1,3 @@
-# flightsapp
-Creating an end-to-end analytics engineering project for portfolio.
 # Flight Analytics Pipeline
 
 An end-to-end analytics engineering pipeline that pulls daily flight data for six global hub airports from the OpenSky Network API, models it in Snowflake with dbt, and serves an airport-operations dashboard in Streamlit.
