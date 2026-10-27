@@ -15,7 +15,7 @@ Built following an analytics engineering course project. The data audit and the 
 - **Transforms** them with dbt through Bronze → Silver → Gold layers, with 20 data tests
 - **Visualizes** capacity, peak hours, airline concentration and route connectivity per airport in Streamlit
 
-~40,000 flights over 7 days (Oct 20–26, 2026).
+~40,000 flights loaded over 7 days (Oct 20–26, 2026). The dashboard uses the 6 complete days; Oct 26 was only partly processed by OpenSky.
 
 ## Architecture
 
